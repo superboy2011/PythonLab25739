@@ -7,7 +7,7 @@ class Note(models.Model):
     name = models.CharField(max_length=256)
     folder_name = models.CharField(max_length=256)
     data = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE())
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     y_r = models.IntegerField()
     m_r = models.IntegerField()
     d_r = models.IntegerField()
@@ -25,4 +25,4 @@ class Note(models.Model):
 class Folder(models.Model):
     name = models.CharField(max_length=256)
     list_notes = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE())
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
