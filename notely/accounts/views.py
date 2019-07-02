@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from notely.accounts.models import Note, Folder
 from django.forms.models import model_to_dict
 import json
-import requests
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST, require_GET
 
@@ -155,7 +154,7 @@ def delete_note(request):
     else:
         Note.objects.filter(name=request.data['name'], folder_name=request.data['folder_name'],
                             user=request.user).delete()
-        folder = Folder.objects.filter(folder_name=request.data['folder_name'])
+        folder = Folder.objects.filter(name=request.data['folder_name'])
         listed_note_names = folder.list_notes.split(',')
         listed_note_names.remove(request.data['name'])
         folder.list_notes = ','.join(map(str, listed_note_names))
@@ -182,14 +181,31 @@ def get_folder_list(request):
     if not request.user.is_authenticated:
         response = HttpResponse('Not signed in', status=403)
     else:
-        folder_set = Folder.objects.all().values_list(name)
+        folder_set = Folder.objects.all().values_list('name')
+        response = HttpResponse(json.dumps(folder_set), status=200)
+    return response
 
 
 @require_GET()
 def get_folder_content(request):
-    pass
+    if not request.user.is_authenticated:
+        response = HttpResponse('Not signed in', status=403)
+    elif not Folder.objects.filter(name=request.data['name'], user=request.user).exists():
+        response = HttpResponse('Requested folder does not exist')
+    else:
+        folder_note_list = Folder.objects.filter(name=request.data['name'], user=request.user)
+        response = HttpResponse(json.dumps(folder_note_list.list_notes), status=200)
+    return response
 
 
 @require_POST()
 def delete_folder(request):
-    pass
+    if not request.user.is_authenticated:
+        response = HttpResponse('Not signed in', status=403)
+    elif not Folder.objects.filter(name=request.data['name'], user=request.user).exists():
+        response = HttpResponse('Said folder does not exist')
+    else:
+        Folder.objects.filter(name=request.data['name'], user=request.user).delete()
+        Note.objects.filter(folder_name=request.data['name'], user=request.user)
+        response = HttpResponse('Successfully deleted the folder and its notes', status=200)
+    return response
