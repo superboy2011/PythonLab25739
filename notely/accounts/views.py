@@ -44,7 +44,8 @@ def logout_view(request):
 @require_POST
 def signup(request):
     json_data = json.loads(request.body)
-    if 'NEWUsername' not in json_data or 'NEWPassword' not in json_data or 'NEWEmail' not in json_data or 'NEWFirst_name' not in json_data or 'NEWLast_name' not in json_data:
+    if 'NEWUsername' not in json_data or 'NEWPassword' not in json_data or 'NEWEmail' not in json_data or \
+            'NEWFirst_name' not in json_data or 'NEWLast_name' not in json_data:
         response = HttpResponse('Insufficient data for signup', status=400)
     elif User.objects.filter(username=json_data['NEWUsername']).exists():
         response = HttpResponse('Duplicate Username', status=409)
@@ -55,6 +56,8 @@ def signup(request):
                                         email=json_data['NEWEmail'], first_name=json_data['NEWFirst_name'],
                                         last_name=json_data['NEWLast_name'])
         user.save()
+        folder = Folder.objects.create(name='general', list_notes='', user=request.user)
+        folder.save()
         response = HttpResponse('User successfully signed up!!!', status=200)
     return response
 
@@ -64,7 +67,7 @@ def add_note(request):
     json_data = json.loads(request.body)
     if not request.user.is_authenticated:
         response = HttpResponse('Not signed in', status=403)
-    elif not Folder.objects.filter(name=json_data['folder_name']).exists():
+    elif not Folder.objects.filter(name=json_data['folder_name'], user=request.user).exists():
         response = HttpResponse('No folder with said name', status=400)
     elif Note.objects.filter(name=json_data['name'], folder_name=json_data['folder_name'],
                              user=request.user).exists():
@@ -78,7 +81,7 @@ def add_note(request):
                                    h_m=int(json_data['h_m']), min_m=int(json_data['min_m']),
                                    s_m=int(json_data['s_m']), user=request.user)
         note.save()
-        folder = Folder.objects.filter(name=note.folder_name).first()
+        folder = Folder.objects.filter(name=note.folder_name, user=request.user).first()
         if folder.list_notes == '':
             folder.list_notes = note.name
         else:
@@ -118,7 +121,7 @@ def update_note(request):
                                    user=request.user).first()
         if 'name' in json_data:
             note.name = json_data['name']
-            folder = Folder.objects.filter(name=note.folder_name).first()
+            folder = Folder.objects.filter(name=note.folder_name, user=request.user).first()
             listed_note_names = folder.list_notes.split(',')
             listed_note_names = [json_data['name'] if note_name == json_data['old_name'] else note_name for
                                  note_name in listed_note_names]
@@ -156,7 +159,7 @@ def delete_note(request):
     else:
         Note.objects.filter(name=json_data['name'], folder_name=json_data['folder_name'],
                             user=request.user).delete()
-        folder = Folder.objects.filter(name=json_data['folder_name']).first()
+        folder = Folder.objects.filter(name=json_data['folder_name'], user=request.user).first()
         listed_note_names = folder.list_notes.split(',')
         listed_note_names.remove(json_data['name'])
         if len(listed_note_names) == 0:
@@ -173,7 +176,7 @@ def add_folder(request):
     json_data = json.loads(request.body)
     if not request.user.is_authenticated:
         response = HttpResponse('Not signed in', status=403)
-    elif Folder.objects.filter(name=json_data['name']).exists():
+    elif Folder.objects.filter(name=json_data['name'], user=request.user).exists():
         response = HttpResponse('Duplicate folder name', status=400)
     else:
         folder = Folder.objects.create(name=json_data['name'], list_notes='', user=request.user)
@@ -187,7 +190,7 @@ def get_folder_list(request):
     if not request.user.is_authenticated:
         response = HttpResponse('Not signed in', status=403)
     else:
-        folder_set = list(Folder.objects.all().values_list('name', flat=True))
+        folder_set = list(Folder.objects.filter(user=request.user).exclude(name='general').values_list('name', flat=True))
         response = HttpResponse(json.dumps(folder_set), status=200)
     return response
 
@@ -213,7 +216,10 @@ def delete_folder(request):
     elif not Folder.objects.filter(name=json_data['name'], user=request.user).exists():
         response = HttpResponse('Said folder does not exist')
     else:
-        Folder.objects.filter(name=json_data['name'], user=request.user).delete()
-        Note.objects.filter(folder_name=json_data['name'], user=request.user)
-        response = HttpResponse('Successfully deleted the folder and its notes', status=200)
+        if json_data['name'] == 'general':
+            response = HttpResponse('The general folder cannot be deleted!!!', status=400)
+        else:
+            Folder.objects.filter(name=json_data['name'], user=request.user).delete()
+            Note.objects.filter(folder_name=json_data['name'], user=request.user)
+            response = HttpResponse('Successfully deleted the folder and its notes', status=200)
     return response
