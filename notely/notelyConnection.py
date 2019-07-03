@@ -2,23 +2,35 @@ import requests
 import json
 from notelyClasses import NotelyNote, NotelyFolder, datatime_m_to_dict, datatime_r_to_dict
 
-session_server = requests.session()
 
-url_server = "http://127.0.0.1:8000/accounts/"
-
-server_res = session_server.get(url_server + "login/")
-if 'csrftoken' in server_res.cookies:
-    csrf_token = server_res.cookies['csrftoken']
-else:
-    csrf_token = 'null'
+session_server = None
+url_server = None
+csrf_token = None
 
 
-def send_request(url_page, dict_data, type):
+def initialize():
+    global session_server, url_server
+    session_server = requests.session()
+
+    url_server = "http://127.0.0.1:8000/accounts/"
+    refresh_csrf()
+
+
+def refresh_csrf():
+    global csrf_token
+    server_res = session_server.get(url_server + "login/")
+    if 'csrftoken' in server_res.cookies:
+        csrf_token = server_res.cookies['csrftoken']
+    else:
+        csrf_token = 'null'
+
+
+def send_request(url_page, dict_data, type_request):
     headers = {'Content-type': 'application/json', "X-CSRFToken": csrf_token, "Referer": (url_server + url_page)}
     dict_data['csrfmiddlewaretoken'] = csrf_token
-    if type is "POST":
+    if type_request is "POST":
         return session_server.post(url_server + url_page, data=json.dumps(dict_data), headers=headers)
-    elif type is "GET":
+    elif type_request is "GET":
         return session_server.get(url_server + url_page, data=json.dumps(dict_data), headers=headers)
     else:
         print("No type other than GET or POST is supported yet")
@@ -26,6 +38,7 @@ def send_request(url_page, dict_data, type):
 
 def login_user(username, password):
     res = send_request("login/", {"InUsername": username, "InPassword": password}, "POST")
+    refresh_csrf()
     print(res.text)
     return (res.status_code == 200), res.text, res.status_code
 
@@ -37,7 +50,8 @@ def logout_user():
 
 
 def signup_user(username, password, email, first_name, last_name):
-    res = send_request("signup/", {'NEWUsername': username, 'NEWPassword': password, 'NEWEmail': email, 'NEWFirst_name': first_name, 'NEWLast_name': last_name}, "POST")
+    res = send_request("signup/", {'NEWUsername': username, 'NEWPassword': password, 'NEWEmail': email,
+                                   'NEWFirst_name': first_name, 'NEWLast_name': last_name}, "POST")
     print(res.text)
     return (res.status_code == 200), res.text, res.status_code
 
@@ -49,7 +63,7 @@ def add_note_user(notely_note):
 
 
 def get_note_user(name, folder_name):
-    res = send_request("node/get/", {"name": name, "folder_name": folder_name}, "GET")
+    res = send_request("note/get/", {"name": name, "folder_name": folder_name}, "GET")
     if res.status_code == 200:
         return True, NotelyNote(dict_json=res.json()), res.status_code
     else:
@@ -66,13 +80,14 @@ def update_note_user(new_notely_note, old_notely_note):
         dict_update.update(datatime_m_to_dict(new_notely_note.make_time))
     if new_notely_note.reminder != old_notely_note.reminder:
         dict_update.update(datatime_r_to_dict(new_notely_note.reminder))
+    print(dict_update)
     res = send_request("note/update/", dict_update, "POST")
     print(res.text)
     return (res.status_code == 200), res.text, res.status_code
 
 
 def delete_note_user(name, folder_name):
-    res = send_request("node/delete/", {"name": name, "folder_name": folder_name}, "POST")
+    res = send_request("note/delete/", {"name": name, "folder_name": folder_name}, "POST")
     print(res.text)
     return (res.status_code == 200), res.text, res.status_code
 
@@ -100,6 +115,6 @@ def get_folder_content_user(folder_name):
 
 
 def delete_folder_user(folder_name):
-    res = send_request("node/delete/", {"name": folder_name}, "POST")
+    res = send_request("folder/delete/", {"name": folder_name}, "POST")
     print(res.text)
     return (res.status_code == 200), res.text, res.status_code

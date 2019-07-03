@@ -2,7 +2,8 @@ import datetime
 
 
 class NotelyNote:
-    def __init__(self, name=None, folder_name=None, data=None, reminder=None, dict_json=None):
+    def __init__(self, name=None, folder_name=None, data=None, reminder=datetime.datetime(1, 1, 1, 0, 0, 0),
+                 dict_json=None):
         if dict_json is None:
             self.name = name
             self.folder_name = folder_name
@@ -14,8 +15,7 @@ class NotelyNote:
             self.data = dict_json['data']
             self.folder_name = dict_json['folder_name']
             self.make_time = dict_to_datetime_m(dict_json)
-            if 'y_r' in dict_json and not dict_json['y_r'] == 0:
-                self.reminder = dict_to_datetime_r(dict_json)
+            self.reminder = dict_to_datetime_r(dict_json)
 
     def set_reminder(self, reminder):
         self.reminder = reminder
@@ -23,8 +23,7 @@ class NotelyNote:
     def to_dict(self):
         dict_trans = {'name': self.name, 'data': self. data, 'folder_name': self.folder_name}
         dict_trans.update(datatime_m_to_dict(self.make_time))
-        if self.reminder is not None:
-            dict_trans.update(datatime_r_to_dict(self.reminder))
+        dict_trans.update(datatime_r_to_dict(self.reminder))
         return dict_trans
 
 
@@ -35,7 +34,7 @@ class NotelyFolder:
             self.list_notes = list_notes
         else:
             self.name = dict_json['name']
-            self.list_notes = dict_json['list'].split(',')
+            self.list_notes = dict_json['list_notes'].split(',')
 
     def to_dict(self):
         dict_trans = {'name': self.name, 'list_notes': ','.join(map(str, self.list_notes))}
@@ -55,13 +54,14 @@ def datatime_r_to_dict(datetime_instance):
 
 
 def dict_to_datetime_m(dict_dt):
+    print(dict_dt)
     datatime_instance = datetime.datetime(int(dict_dt['y_m']), int(dict_dt['m_m']), int(dict_dt['d_m']),
-                                          int(dict_dt['h_m']), int(dict_dt('min_m')), int(dict_dt('s_m')))
+                                          int(dict_dt['h_m']), int(dict_dt['min_m']), int(dict_dt['s_m']))
     return datatime_instance
 
 
 def dict_to_datetime_r(dict_dt):
     datatime_instance = datetime.datetime(int(dict_dt['y_r']), int(dict_dt['m_r']), int(dict_dt['d_r']),
-                                          int(dict_dt['h_r']), int(dict_dt('min_r')), int(dict_dt('s_r')))
+                                          int(dict_dt['h_r']), int(dict_dt['min_r']), int(dict_dt['s_r']))
     return datatime_instance
 
