@@ -25,7 +25,7 @@ urlpatterns = [
     path('note/update/', views.update_note),
     path('note/delete/', views.delete_note),
     path('folder/add/', views.add_folder),
-    path('folder/get/', views.get_folder_list),
+    path('folder/get_all/', views.get_folder_list),
     path('folder/get_content/', views.get_folder_content),
     path('folder/delete/', views.delete_folder),
 ]

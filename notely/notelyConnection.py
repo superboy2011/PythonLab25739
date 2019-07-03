@@ -1,10 +1,6 @@
-# TODO: signup, logout
-# TODO: get note, add note, update note
-# TODO: get folder list, add folder, get folder contents
-# TODO: delete folder, delete note
-# TODO: make session before request
 import requests
 import json
+from notelyClasses import NotelyNote, NotelyFolder, datatime_m_to_dict, datatime_r_to_dict
 
 session_server = requests.session()
 
@@ -30,14 +26,80 @@ def send_request(url_page, dict_data, type):
 
 def login_user(username, password):
     res = send_request("login/", {"InUsername": username, "InPassword": password}, "POST")
-    if res.status_code == 401:
-        print(res.text)
-        return False
-    elif res.status_code == 200:
-        print(res.text)
-        return True
-    else:
-        print(res.status_code)
-        print(res.text)
-        return False
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code
 
+
+def logout_user():
+    res = send_request("logout/", {}, "POST")
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code
+
+
+def signup_user(username, password, email, first_name, last_name):
+    res = send_request("signup/", {'NEWUsername': username, 'NEWPassword': password, 'NEWEmail': email, 'NEWFirst_name': first_name, 'NEWLast_name': last_name}, "POST")
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code
+
+
+def add_note_user(notely_note):
+    res = send_request("note/add/", notely_note.to_dict(), "POST")
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code
+
+
+def get_note_user(name, folder_name):
+    res = send_request("node/get/", {"name": name, "folder_name": folder_name}, "GET")
+    if res.status_code == 200:
+        return True, NotelyNote(dict_json=res.json()), res.status_code
+    else:
+        return False, res.text, res.status_code
+
+
+def update_note_user(new_notely_note, old_notely_note):
+    dict_update = {"old_name": old_notely_note.name, "folder_name": old_notely_note.folder_name}
+    if new_notely_note.name != old_notely_note.name:
+        dict_update['name'] = new_notely_note.name
+    if new_notely_note.data != old_notely_note.data:
+        dict_update['data'] = new_notely_note.data
+    if new_notely_note.make_time != old_notely_note.make_time:
+        dict_update.update(datatime_m_to_dict(new_notely_note.make_time))
+    if new_notely_note.reminder != old_notely_note.reminder:
+        dict_update.update(datatime_r_to_dict(new_notely_note.reminder))
+    res = send_request("note/update/", dict_update, "POST")
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code
+
+
+def delete_note_user(name, folder_name):
+    res = send_request("node/delete/", {"name": name, "folder_name": folder_name}, "POST")
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code
+
+
+def add_folder_user(notely_folder):
+    res = send_request("folder/add/", {"name": notely_folder.name}, "POST")
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code
+
+
+def get_folder_list_user():
+    res = send_request("folder/get_all/", {}, "GET")
+    if res.status_code == 200:
+        return True, res.json(), res.status_code
+    else:
+        return False, res.text, res.status_code
+
+
+def get_folder_content_user(folder_name):
+    res = send_request("folder/get_content/", {"name": folder_name}, "GET")
+    if res.status_code == 200:
+        return True, NotelyFolder(dict_json=res.json()), res.status_code
+    else:
+        return False, res.text, res.status_code
+
+
+def delete_folder_user(folder_name):
+    res = send_request("node/delete/", {"name": folder_name}, "POST")
+    print(res.text)
+    return (res.status_code == 200), res.text, res.status_code

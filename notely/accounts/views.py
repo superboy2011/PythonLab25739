@@ -15,7 +15,8 @@ from django.middleware.csrf import get_token
 def login(request):
     if request.method == "GET":
         response = HttpResponse(json.dumps({'csrf status': 'active', 'csrfchip': get_token(request)}), status=200)
-        return response
+    elif 'Inpassword' not in request.json or 'InUsername' not in request.json:
+        response = HttpResponse('Insufficient data for login')
     else:
         json_data = json.loads(request.body)
         password_in = json_data['InPassword']
@@ -26,7 +27,7 @@ def login(request):
             response = HttpResponse('Login Successful. Welcome ' + user.first_name, status=200)
         else:
             response = HttpResponse('Login Failed. Invalid username or password.', status=401)
-        return response
+    return response
 
 
 @require_POST
@@ -115,17 +116,17 @@ def get_note(request):
 def update_note(request):
     if not request.user.is_authenticated:
         response = HttpResponse('Not signed in', status=403)
-    elif not Note.objects.filter(name=request.json['name'], folder_name=request.get['folder_name'],
+    elif not Note.objects.filter(name=request.json['old_name'], folder_name=request.get['folder_name'],
                                  user=request.user).exists():
         response = HttpResponse('The note to be updated does not exist', status=409)
     else:
-        note = Note.objects.filter(name=request.json['name'], folder_name=request.json['folder_name'],
+        note = Note.objects.filter(name=request.json['old_name'], folder_name=request.json['folder_name'],
                                    user=request.user)
-        if 'new_name' in request.json['data']:
-            note.name = request.json['new_name']
+        if 'name' in request.json['data']:
+            note.name = request.json['name']
             folder = Folder.objects.filter(folder_name=note.folder_name)
             listed_note_names = folder.list_notes.split(',')
-            listed_note_names = [request.json['new_name'] if note_name == request.json['name'] else note_name for
+            listed_note_names = [request.json['name'] if note_name == request.json['old_name'] else note_name for
                                  note_name in listed_note_names]
             folder.list_notes = ','.join(map(str, listed_note_names))
             folder.save()
