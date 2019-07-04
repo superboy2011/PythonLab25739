@@ -80,7 +80,6 @@ def update_note_user(new_notely_note, old_notely_note):
         dict_update.update(datatime_m_to_dict(new_notely_note.make_time))
     if new_notely_note.reminder != old_notely_note.reminder:
         dict_update.update(datatime_r_to_dict(new_notely_note.reminder))
-    print(dict_update)
     res = send_request("note/update/", dict_update, "POST")
     print(res.text)
     return (res.status_code == 200), res.text, res.status_code

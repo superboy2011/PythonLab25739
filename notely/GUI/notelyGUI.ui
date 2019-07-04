@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Logged_in_window</class>
+ <widget class="QMainWindow" name="Logged_in_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>666</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>NoteLY - The Web Server Based Online Notebook</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>666</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="signup_page">
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <widget class="QSplitter" name="splitter">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>276</y>
+        <width>160</width>
+        <height>120</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>40</number>
+      </property>
+      <widget class="QPushButton" name="sign_up_btn">
+       <property name="text">
+        <string>Register</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="back_btn">
+       <property name="text">
+        <string>Go Back</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSplitter" name="splitter_2">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>180</y>
+        <width>221</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>20</number>
+      </property>
+      <widget class="QSplitter" name="splitter_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <widget class="QLineEdit" name="line_first_name">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>First Name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_last_name">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Last name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_email">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Email</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_user">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Username</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_pass">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Password</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="login_page">
+     <widget class="QSplitter" name="splitter_4">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>238</y>
+        <width>220</width>
+        <height>190</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>6</number>
+      </property>
+      <widget class="QSplitter" name="splitter_5">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="handleWidth">
+        <number>40</number>
+       </property>
+       <widget class="QLineEdit" name="line_user_2">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Username</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_pass_2">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Password</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QSplitter" name="splitter_6">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>276</y>
+        <width>160</width>
+        <height>120</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>40</number>
+      </property>
+      <widget class="QPushButton" name="log_in_btn">
+       <property name="text">
+        <string>Login</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="back_btn_2">
+       <property name="text">
+        <string>Go Back</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <zorder>graphicsView_2</zorder>
+     <zorder>splitter_6</zorder>
+     <zorder>splitter_4</zorder>
+    </widget>
+    <widget class="QWidget" name="main_menu_page">
+     <widget class="QGraphicsView" name="graphicsView_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <widget class="QSplitter" name="splitter_7">
+      <property name="geometry">
+       <rect>
+        <x>576</x>
+        <y>183</y>
+        <width>160</width>
+        <height>300</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>20</number>
+      </property>
+      <widget class="QPushButton" name="new_note_btn">
+       <property name="text">
+        <string>Make a new note</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="new_cat_btn">
+       <property name="text">
+        <string>Make a new category</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="list_cat_btn">
+       <property name="text">
+        <string>See all categories</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="gen_cat_btn">
+       <property name="text">
+        <string>Uncategorized notes</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="log_out_btn">
+       <property name="text">
+        <string>Logout</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="new_note_page">
+     <widget class="QGraphicsView" name="graphicsView_4">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <widget class="QSplitter" name="splitter_8">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>120</y>
+        <width>221</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>40</number>
+      </property>
+      <widget class="QLabel" name="cat_note_lbl">
+       <property name="text">
+        <string>Category:</string>
+       </property>
+      </widget>
+      <widget class="QDateTimeEdit" name="reminder_dt"/>
+      <widget class="QCheckBox" name="reminder_chkbx">
+       <property name="text">
+        <string>Reminder</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="save_note_btn">
+       <property name="text">
+        <string>Save Note</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="discard_note_btn">
+       <property name="text">
+        <string>Discard Note</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLineEdit" name="line_note_name">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>110</y>
+        <width>251</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Note name</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="note_data_txt">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>170</y>
+        <width>251</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>URW Chancery L</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 211, 33, 0);
+border-color: rgb(255, 255, 255);
+border-color: rgb(255, 0, 0);
+alternate-background-color: rgb(255, 211, 33, 0);
+border-top-color: rgb(255, 0, 0);
+gridline-color: rgb(255, 0, 0);
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'URW Chancery L'; font-size:16pt; font-weight:600; font-style:italic;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="update_note_page">
+     <widget class="QSplitter" name="splitter_11">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>120</y>
+        <width>221</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>40</number>
+      </property>
+      <widget class="QLabel" name="cat_note_lbl_2">
+       <property name="text">
+        <string>Category:</string>
+       </property>
+      </widget>
+      <widget class="QDateTimeEdit" name="reminder_dt_2"/>
+      <widget class="QCheckBox" name="reminder_chkbx_2">
+       <property name="text">
+        <string>Reminder</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="updat_note_btn">
+       <property name="text">
+        <string>Update Note</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="delete_note_btn">
+       <property name="text">
+        <string>Delete Note</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="go_back_btn_3">
+       <property name="text">
+        <string>Go Back</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_note_name_2">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>110</y>
+        <width>251</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Note name</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="note_data_txt_2">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>170</y>
+        <width>251</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>URW Chancery L</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 211, 33, 0);
+border-color: rgb(255, 255, 255);
+border-color: rgb(255, 0, 0);
+alternate-background-color: rgb(255, 211, 33, 0);
+border-top-color: rgb(255, 0, 0);
+gridline-color: rgb(255, 0, 0);
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'URW Chancery L'; font-size:16pt; font-weight:600; font-style:italic;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <zorder>graphicsView_7</zorder>
+     <zorder>splitter_11</zorder>
+     <zorder>line_note_name_2</zorder>
+     <zorder>note_data_txt_2</zorder>
+    </widget>
+    <widget class="QWidget" name="new_cat_page">
+     <widget class="QLineEdit" name="new_cat_txt">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>318</y>
+        <width>251</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 211, 33);
+alternate-background-color: rgb(255, 211, 33);</string>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>New Category Name</string>
+      </property>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <widget class="QSplitter" name="splitter_9">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>250</y>
+        <width>221</width>
+        <height>166</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>50</number>
+      </property>
+      <widget class="QPushButton" name="add_cat_btn">
+       <property name="text">
+        <string>Add Category</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="go_bck_btn">
+       <property name="text">
+        <string>Go Back</string>
+       </property>
+      </widget>
+     </widget>
+     <zorder>graphicsView_5</zorder>
+     <zorder>splitter_9</zorder>
+     <zorder>new_cat_txt</zorder>
+     <zorder>discard_note_btn_3</zorder>
+     <zorder>save_note_btn_3</zorder>
+     <zorder>note_data_txt</zorder>
+    </widget>
+    <widget class="QWidget" name="list_note_cat_page">
+     <widget class="QGraphicsView" name="graphicsView_6">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>110</y>
+        <width>281</width>
+        <height>451</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 220, 44);</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>279</width>
+         <height>449</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSplitter" name="splitter_10">
+      <property name="geometry">
+       <rect>
+        <x>576</x>
+        <y>220</y>
+        <width>141</width>
+        <height>226</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>40</number>
+      </property>
+      <widget class="QLabel" name="cat_name_lbl">
+       <property name="text">
+        <string>Categoty</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="new_note_cat_btn">
+       <property name="text">
+        <string>New Note</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="go_back_btn_2">
+       <property name="text">
+        <string>Go Back</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="list_all_cat_page">
+     <widget class="QSplitter" name="splitter_12">
+      <property name="geometry">
+       <rect>
+        <x>576</x>
+        <y>245</y>
+        <width>141</width>
+        <height>176</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>40</number>
+      </property>
+      <widget class="QPushButton" name="delete_cat_btn">
+       <property name="text">
+        <string>Delete Category(s)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="go_back_btn_4">
+       <property name="text">
+        <string>Go Back</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView_8">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>666</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/newPrefix/backgnd.jpeg);</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>110</y>
+        <width>281</width>
+        <height>451</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 220, 44);</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>279</width>
+         <height>449</height>
+        </rect>
+       </property>
+       <zorder>splitter_12</zorder>
+      </widget>
+     </widget>
+     <zorder>graphicsView_8</zorder>
+     <zorder>splitter_12</zorder>
+     <zorder>scrollArea_2</zorder>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>graphicsView_3</tabstop>
+  <tabstop>graphicsView_4</tabstop>
+  <tabstop>graphicsView_7</tabstop>
+  <tabstop>graphicsView_5</tabstop>
+  <tabstop>graphicsView_6</tabstop>
+  <tabstop>graphicsView_8</tabstop>
+  <tabstop>graphicsView</tabstop>
+  <tabstop>graphicsView_2</tabstop>
+  <tabstop>reminder_chkbx</tabstop>
+  <tabstop>save_note_btn</tabstop>
+  <tabstop>discard_note_btn</tabstop>
+  <tabstop>line_note_name_2</tabstop>
+  <tabstop>note_data_txt_2</tabstop>
+  <tabstop>reminder_dt_2</tabstop>
+  <tabstop>reminder_chkbx_2</tabstop>
+  <tabstop>updat_note_btn</tabstop>
+  <tabstop>delete_note_btn</tabstop>
+  <tabstop>go_back_btn_3</tabstop>
+  <tabstop>new_cat_txt</tabstop>
+  <tabstop>add_cat_btn</tabstop>
+  <tabstop>go_bck_btn</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>new_note_cat_btn</tabstop>
+  <tabstop>go_back_btn_2</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>delete_cat_btn</tabstop>
+  <tabstop>go_back_btn_4</tabstop>
+  <tabstop>line_first_name</tabstop>
+  <tabstop>line_last_name</tabstop>
+  <tabstop>line_email</tabstop>
+  <tabstop>line_user</tabstop>
+  <tabstop>line_pass</tabstop>
+  <tabstop>sign_up_btn</tabstop>
+  <tabstop>back_btn</tabstop>
+  <tabstop>line_user_2</tabstop>
+  <tabstop>line_pass_2</tabstop>
+  <tabstop>log_in_btn</tabstop>
+  <tabstop>back_btn_2</tabstop>
+  <tabstop>list_cat_btn</tabstop>
+  <tabstop>reminder_dt</tabstop>
+  <tabstop>line_note_name</tabstop>
+  <tabstop>new_note_btn</tabstop>
+  <tabstop>note_data_txt</tabstop>
+  <tabstop>gen_cat_btn</tabstop>
+  <tabstop>graphicsView_9</tabstop>
+  <tabstop>sign_up_btn_2</tabstop>
+  <tabstop>back_btn_3</tabstop>
+  <tabstop>line_first_name_2</tabstop>
+  <tabstop>line_last_name_2</tabstop>
+  <tabstop>line_email_2</tabstop>
+  <tabstop>line_user_3</tabstop>
+  <tabstop>line_pass_3</tabstop>
+  <tabstop>line_user_4</tabstop>
+  <tabstop>line_pass_4</tabstop>
+  <tabstop>log_in_btn_2</tabstop>
+  <tabstop>back_btn_4</tabstop>
+  <tabstop>graphicsView_10</tabstop>
+  <tabstop>graphicsView_11</tabstop>
+  <tabstop>new_note_btn_2</tabstop>
+  <tabstop>new_cat_btn_2</tabstop>
+  <tabstop>list_cat_btn_2</tabstop>
+  <tabstop>gen_cat_btn_2</tabstop>
+  <tabstop>log_out_btn_2</tabstop>
+  <tabstop>graphicsView_12</tabstop>
+  <tabstop>note_data_txt_3</tabstop>
+  <tabstop>reminder_dt_3</tabstop>
+  <tabstop>reminder_chkbx_3</tabstop>
+  <tabstop>save_note_btn_2</tabstop>
+  <tabstop>discard_note_btn_2</tabstop>
+  <tabstop>line_note_name_3</tabstop>
+  <tabstop>reminder_dt_4</tabstop>
+  <tabstop>reminder_chkbx_4</tabstop>
+  <tabstop>updat_note_btn_2</tabstop>
+  <tabstop>delete_note_btn_2</tabstop>
+  <tabstop>go_back_btn_5</tabstop>
+  <tabstop>note_data_txt_4</tabstop>
+  <tabstop>graphicsView_13</tabstop>
+  <tabstop>line_note_name_4</tabstop>
+  <tabstop>new_cat_txt_2</tabstop>
+  <tabstop>graphicsView_14</tabstop>
+  <tabstop>add_cat_btn_2</tabstop>
+  <tabstop>go_bck_btn_2</tabstop>
+  <tabstop>graphicsView_15</tabstop>
+  <tabstop>scrollArea_3</tabstop>
+  <tabstop>new_note_cat_btn_2</tabstop>
+  <tabstop>go_back_btn_6</tabstop>
+  <tabstop>delete_cat_btn_2</tabstop>
+  <tabstop>go_back_btn_7</tabstop>
+  <tabstop>graphicsView_16</tabstop>
+  <tabstop>scrollArea_4</tabstop>
+  <tabstop>log_out_btn</tabstop>
+  <tabstop>new_cat_btn</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../resources/rsc1.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import QDateTime
+from PyQt5.QtCore import QDateTime, QRegExp
+import PyQt5.QtGui
 from PyQt5.QtWidgets import QMessageBox, QPushButton, QSizePolicy, QCheckBox
 
 from notelyLoginGUI import Ui_MainWindow
@@ -11,7 +12,8 @@ from functools import partial
 
 window_start = None
 window_main = None
-buttons = []
+button_folders = []
+button_notes = []
 chkbxs = []
 
 
@@ -57,6 +59,10 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
         self.go_back_btn_3.clicked.connect(self.update_go_back_dis)
         self.delete_cat_btn.clicked.connect(self.delete_selected_folders_gui)
         self.go_back_btn_4.clicked.connect(self.delete_btn_bx_go_back_gui)
+        self.no_commas = PyQt5.QtGui.QRegExpValidator(QRegExp("[^,]+"))
+        self.line_note_name.setValidator(self.no_commas)
+        self.line_note_name_2.setValidator(self.no_commas)
+        self.new_cat_txt.setValidator(self.no_commas)
 
     def go_back_to_start_window(self):
         self.line_user.setText("")
@@ -144,10 +150,10 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
 
     def add_note_gui(self, category, prev_page_index):
         if self.reminder_chkbx.isChecked():
-            new_note = NotelyNote(self.line_note_name.text(), category, self.note_data_txt.text(),
+            new_note = NotelyNote(self.line_note_name.text(), category, self.note_data_txt.toPlainText(),
                                   self.reminder_dt.dateTime().toPyDateTime())
         else:
-            new_note = NotelyNote(self.line_note_name.text(), category, self.note_data_txt.text())
+            new_note = NotelyNote(self.line_note_name.text(), category, self.note_data_txt.toPlainText())
         success, result, code = notelyConnection.add_note_user(new_note)
         if success:
             msg = QMessageBox()
@@ -160,7 +166,12 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
             self.save_note_btn.disconnect()
             self.line_note_name.setText("")
             self.note_data_txt.setText("")
-            self.stackedWidget.setCurrentIndex(prev_page_index)
+            if prev_page_index == 2:
+                self.stackedWidget.setCurrentIndex(2)
+            elif prev_page_index == 6:
+                self.come_back_to_show_folder(category)
+            else:
+                print('FATAL ERROR IN ADD NOTE REDIRECT')
         else:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
@@ -212,8 +223,8 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
             msg.exec()
         else:
             self.stackedWidget.setCurrentIndex(7)
-            global buttons, chkbxs
-            buttons = []  # x: 60, y_start: 20, height:35, width: 200
+            global button_folders, chkbxs
+            button_folders = []  # x: 60, y_start: 20, height:35, width: 200
             chkbxs = []  # X:20, y_start:20, height:35, width: 20
             for idx, category in enumerate(result):
                 btn = QPushButton(self.scrollArea_2)
@@ -222,8 +233,8 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
                 btn.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
                 btn.setObjectName(("btn_cat" + str(idx)))
                 btn.show()
-                btn.clicked.connect(partial(self.show_folder_contents_gui, category, 6))
-                buttons.append((btn, category))
+                btn.clicked.connect(partial(self.show_folder_contents_gui, category, 7))
+                button_folders.append((btn, category))
                 chkbx = QCheckBox(self.scrollAreaWidgetContents_2)
                 chkbx.setText("")
                 chkbx.setGeometry(QtCore.QRect(20, 20 + 55 * idx, 20, 35))
@@ -233,6 +244,7 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
                 chkbxs.append((chkbx, category))
 
     def delete_selected_folders_gui(self):
+        global button_folders, chkbxs
         checked = False
         for chkbx in chkbxs:
             if chkbx[0].isChecked():
@@ -245,20 +257,38 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec()
         else:
-            for btn in buttons:
+            for btn in button_folders:
                 btn[0].deleteLater()
+            button_folders = []
             for chkbx in chkbxs:
                 if chkbx[0].isChecked():
                     notelyConnection.delete_folder_user(chkbx[1])
                 chkbx[0].deleteLater()
+            chkbxs = []
             self.show_all_folders_gui()
 
     def delete_btn_bx_go_back_gui(self):
-        for btn in buttons:
+        global button_folders, chkbxs
+        for btn in button_folders:
             btn[0].deleteLater()
+        button_folders = []
         for ckbx in chkbxs:
             ckbx[0].deleteLater()
+        chkbxs = []
         self.stackedWidget.setCurrentIndex(2)
+
+    def come_back_to_show_folder(self, category):
+        global button_notes
+        for btn in button_notes:
+            btn[0].deleteLater()
+        button_notes = []
+        self.new_note_cat_btn.disconnect()
+        self.go_back_btn_2.disconnect()
+        if category == 'Uncategorized':
+            prev_page_index = 2
+        else:
+            prev_page_index = 7
+        self.show_folder_contents_gui(category, prev_page_index)
 
     def show_folder_contents_gui(self, category, prev_page_index):
         success, result, code = notelyConnection.get_folder_content_user(category)
@@ -274,8 +304,8 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
             result = result.list_notes
             self.stackedWidget.setCurrentIndex(6)
             self.cat_name_lbl.setText(category)
-            global buttons
-            buttons = []  # x: 20, y_start: 20, height:35, width: 240
+            global button_notes
+            button_notes = []  # x: 20, y_start: 20, height:35, width: 240
             for idx, note_name in enumerate(result):
                 btn = QPushButton(self.scrollArea)
                 btn.setText(note_name)
@@ -284,12 +314,11 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
                 btn.setObjectName(("btn_cat" + str(idx)))
                 btn.show()
                 btn.clicked.connect(partial(self.update_page_render_gui, note_name, category, btn, prev_page_index))
-                buttons.append((btn, category))
+                button_notes.append((btn, category))
             self.new_note_cat_btn.clicked.connect(partial(self.add_note_page_render, category, 6))
             self.go_back_btn_2.clicked.connect(partial(self.delete_btn_go_back_gui, prev_page_index))
 
     def update_page_render_gui(self, note_name, category, btn, prev_page_index):
-        print(note_name)
         success, result, code = notelyConnection.get_note_user(note_name, category)
         if not success:
             msg = QMessageBox()
@@ -357,12 +386,14 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
         if success:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.NoIcon)
-            msg.setText("Note updated successfully")
+            msg.setText("Note deleted successfully")
             msg.setWindowTitle("Success")
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec()
-            for btn in buttons:
+            global button_notes
+            for btn in button_notes:
                 btn[0].deleteLater()
+            button_notes = []
             self.new_note_cat_btn.disconnect()
             self.go_back_btn_2.disconnect()
             self.updat_note_btn.disconnect()
@@ -382,8 +413,10 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
                 self.stackedWidget.setCurrentIndex(7)
 
     def delete_btn_go_back_gui(self, prev_page_index):
-        for btn in buttons:
+        global button_notes
+        for btn in button_notes:
             btn[0].deleteLater()
+        button_notes = []
         self.new_note_cat_btn.disconnect()
         self.go_back_btn_2.disconnect()
         self.stackedWidget.setCurrentIndex(prev_page_index)

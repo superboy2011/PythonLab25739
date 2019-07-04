@@ -7,7 +7,6 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_POST, require_GET, require_http_methods
 from django.middleware.csrf import get_token
 
-# Create your views here.
 # TODO: find a way to manage the reminder, check how we sent emails for starters
 
 

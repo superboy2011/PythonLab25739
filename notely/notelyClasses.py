@@ -34,7 +34,11 @@ class NotelyFolder:
             self.list_notes = list_notes
         else:
             self.name = dict_json['name']
-            self.list_notes = dict_json['list_notes'].split(',')
+            list_temp = dict_json['list_notes'].split(',')
+            if len(list_temp) == 1 and list_temp[0] == '':
+                self.list_notes = []
+            else:
+                self.list_notes = list_temp
 
     def to_dict(self):
         dict_trans = {'name': self.name, 'list_notes': ','.join(map(str, self.list_notes))}
@@ -54,7 +58,6 @@ def datatime_r_to_dict(datetime_instance):
 
 
 def dict_to_datetime_m(dict_dt):
-    print(dict_dt)
     datatime_instance = datetime.datetime(int(dict_dt['y_m']), int(dict_dt['m_m']), int(dict_dt['d_m']),
                                           int(dict_dt['h_m']), int(dict_dt['min_m']), int(dict_dt['s_m']))
     return datatime_instance

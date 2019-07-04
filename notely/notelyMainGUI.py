@@ -136,13 +136,6 @@ class Ui_Logged_in_window(object):
         self.graphicsView_4.setGeometry(QtCore.QRect(0, 0, 800, 666))
         self.graphicsView_4.setStyleSheet("background-image: url(:/newPrefix/backgnd.jpeg);")
         self.graphicsView_4.setObjectName("graphicsView_4")
-        self.note_data_txt = QtWidgets.QLineEdit(self.new_note_page)
-        self.note_data_txt.setGeometry(QtCore.QRect(200, 170, 251, 381))
-        self.note_data_txt.setStyleSheet("background-color: rgb(255, 211, 33);\n"
-"alternate-background-color: rgb(255, 211, 33);")
-        self.note_data_txt.setEchoMode(QtWidgets.QLineEdit.Normal)
-        self.note_data_txt.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignTop)
-        self.note_data_txt.setObjectName("note_data_txt")
         self.splitter_8 = QtWidgets.QSplitter(self.new_note_page)
         self.splitter_8.setGeometry(QtCore.QRect(540, 120, 221, 401))
         self.splitter_8.setOrientation(QtCore.Qt.Vertical)
@@ -160,11 +153,31 @@ class Ui_Logged_in_window(object):
         self.discard_note_btn.setObjectName("discard_note_btn")
         self.line_note_name = QtWidgets.QLineEdit(self.new_note_page)
         self.line_note_name.setGeometry(QtCore.QRect(200, 110, 251, 51))
+        self.line_note_name.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.line_note_name.setStyleSheet("background-color: rgb(255, 211, 33);\n"
 "alternate-background-color: rgb(255, 211, 33);")
+        self.line_note_name.setInputMask("")
         self.line_note_name.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.line_note_name.setAlignment(QtCore.Qt.AlignCenter)
         self.line_note_name.setObjectName("line_note_name")
+        self.note_data_txt = QtWidgets.QTextEdit(self.new_note_page)
+        self.note_data_txt.setGeometry(QtCore.QRect(200, 170, 251, 381))
+        font = QtGui.QFont()
+        font.setFamily("URW Chancery L")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.note_data_txt.setFont(font)
+        self.note_data_txt.setStyleSheet("background-color: rgb(255, 211, 33, 0);\n"
+"border-color: rgb(255, 255, 255);\n"
+"border-color: rgb(255, 0, 0);\n"
+"alternate-background-color: rgb(255, 211, 33, 0);\n"
+"border-top-color: rgb(255, 0, 0);\n"
+"gridline-color: rgb(255, 0, 0);\n"
+"")
+        self.note_data_txt.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.note_data_txt.setObjectName("note_data_txt")
         self.stackedWidget.addWidget(self.new_note_page)
         self.update_note_page = QtWidgets.QWidget()
         self.update_note_page.setObjectName("update_note_page")
@@ -185,28 +198,40 @@ class Ui_Logged_in_window(object):
         self.delete_note_btn.setObjectName("delete_note_btn")
         self.go_back_btn_3 = QtWidgets.QPushButton(self.splitter_11)
         self.go_back_btn_3.setObjectName("go_back_btn_3")
-        self.note_data_txt_2 = QtWidgets.QLineEdit(self.update_note_page)
-        self.note_data_txt_2.setGeometry(QtCore.QRect(200, 170, 251, 381))
-        self.note_data_txt_2.setStyleSheet("background-color: rgb(255, 211, 33);\n"
-"alternate-background-color: rgb(255, 211, 33);")
-        self.note_data_txt_2.setEchoMode(QtWidgets.QLineEdit.Normal)
-        self.note_data_txt_2.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignTop)
-        self.note_data_txt_2.setObjectName("note_data_txt_2")
         self.graphicsView_7 = QtWidgets.QGraphicsView(self.update_note_page)
         self.graphicsView_7.setGeometry(QtCore.QRect(0, 0, 800, 666))
         self.graphicsView_7.setStyleSheet("background-image: url(:/newPrefix/backgnd.jpeg);")
         self.graphicsView_7.setObjectName("graphicsView_7")
         self.line_note_name_2 = QtWidgets.QLineEdit(self.update_note_page)
         self.line_note_name_2.setGeometry(QtCore.QRect(200, 110, 251, 51))
+        self.line_note_name_2.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.line_note_name_2.setStyleSheet("background-color: rgb(255, 211, 33);\n"
 "alternate-background-color: rgb(255, 211, 33);")
         self.line_note_name_2.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.line_note_name_2.setAlignment(QtCore.Qt.AlignCenter)
         self.line_note_name_2.setObjectName("line_note_name_2")
+        self.note_data_txt_2 = QtWidgets.QTextEdit(self.update_note_page)
+        self.note_data_txt_2.setGeometry(QtCore.QRect(200, 170, 251, 381))
+        font = QtGui.QFont()
+        font.setFamily("URW Chancery L")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.note_data_txt_2.setFont(font)
+        self.note_data_txt_2.setStyleSheet("background-color: rgb(255, 211, 33, 0);\n"
+"border-color: rgb(255, 255, 255);\n"
+"border-color: rgb(255, 0, 0);\n"
+"alternate-background-color: rgb(255, 211, 33, 0);\n"
+"border-top-color: rgb(255, 0, 0);\n"
+"gridline-color: rgb(255, 0, 0);\n"
+"")
+        self.note_data_txt_2.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.note_data_txt_2.setObjectName("note_data_txt_2")
         self.graphicsView_7.raise_()
         self.splitter_11.raise_()
-        self.note_data_txt_2.raise_()
         self.line_note_name_2.raise_()
+        self.note_data_txt_2.raise_()
         self.stackedWidget.addWidget(self.update_note_page)
         self.new_cat_page = QtWidgets.QWidget()
         self.new_cat_page.setObjectName("new_cat_page")
@@ -233,6 +258,7 @@ class Ui_Logged_in_window(object):
         self.graphicsView_5.raise_()
         self.splitter_9.raise_()
         self.new_cat_txt.raise_()
+        self.note_data_txt.raise_()
         self.stackedWidget.addWidget(self.new_cat_page)
         self.list_note_cat_page = QtWidgets.QWidget()
         self.list_note_cat_page.setObjectName("list_note_cat_page")
@@ -292,12 +318,9 @@ class Ui_Logged_in_window(object):
         self.scrollArea_2.raise_()
         self.stackedWidget.addWidget(self.list_all_cat_page)
         Logged_in_window.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(Logged_in_window)
-        self.statusbar.setObjectName("statusbar")
-        Logged_in_window.setStatusBar(self.statusbar)
 
         self.retranslateUi(Logged_in_window)
-        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Logged_in_window)
 
     def retranslateUi(self, Logged_in_window):
@@ -319,19 +342,27 @@ class Ui_Logged_in_window(object):
         self.list_cat_btn.setText(_translate("Logged_in_window", "See all categories"))
         self.gen_cat_btn.setText(_translate("Logged_in_window", "Uncategorized notes"))
         self.log_out_btn.setText(_translate("Logged_in_window", "Logout"))
-        self.note_data_txt.setPlaceholderText(_translate("Logged_in_window", "Insert notes here"))
         self.cat_note_lbl.setText(_translate("Logged_in_window", "Category:"))
         self.reminder_chkbx.setText(_translate("Logged_in_window", "Reminder"))
         self.save_note_btn.setText(_translate("Logged_in_window", "Save Note"))
         self.discard_note_btn.setText(_translate("Logged_in_window", "Discard Note"))
         self.line_note_name.setPlaceholderText(_translate("Logged_in_window", "Note name"))
+        self.note_data_txt.setHtml(_translate("Logged_in_window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'URW Chancery L\'; font-size:16pt; font-weight:600; font-style:italic;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.cat_note_lbl_2.setText(_translate("Logged_in_window", "Category:"))
         self.reminder_chkbx_2.setText(_translate("Logged_in_window", "Reminder"))
         self.updat_note_btn.setText(_translate("Logged_in_window", "Update Note"))
         self.delete_note_btn.setText(_translate("Logged_in_window", "Delete Note"))
         self.go_back_btn_3.setText(_translate("Logged_in_window", "Go Back"))
-        self.note_data_txt_2.setPlaceholderText(_translate("Logged_in_window", "Insert notes here"))
         self.line_note_name_2.setPlaceholderText(_translate("Logged_in_window", "Note name"))
+        self.note_data_txt_2.setHtml(_translate("Logged_in_window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'URW Chancery L\'; font-size:16pt; font-weight:600; font-style:italic;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.new_cat_txt.setPlaceholderText(_translate("Logged_in_window", "New Category Name"))
         self.add_cat_btn.setText(_translate("Logged_in_window", "Add Category"))
         self.go_bck_btn.setText(_translate("Logged_in_window", "Go Back"))
