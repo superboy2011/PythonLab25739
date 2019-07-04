@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>notebook-wood-table-background_38045-567.jpg</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>backgnd.jpeg</file>
+  </qresource>
+</RCC>
