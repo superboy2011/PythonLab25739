@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import rsc1
 
+
 class Ui_Logged_in_window(object):
     def setupUi(self, Logged_in_window):
         Logged_in_window.setObjectName("Logged_in_window")
@@ -136,7 +137,7 @@ class Ui_Logged_in_window(object):
         self.graphicsView_4.setStyleSheet("background-image: url(:/newPrefix/backgnd.jpeg);")
         self.graphicsView_4.setObjectName("graphicsView_4")
         self.note_data_txt = QtWidgets.QLineEdit(self.new_note_page)
-        self.note_data_txt.setGeometry(QtCore.QRect(200, 150, 251, 401))
+        self.note_data_txt.setGeometry(QtCore.QRect(200, 170, 251, 381))
         self.note_data_txt.setStyleSheet("background-color: rgb(255, 211, 33);\n"
 "alternate-background-color: rgb(255, 211, 33);")
         self.note_data_txt.setEchoMode(QtWidgets.QLineEdit.Normal)
@@ -157,6 +158,13 @@ class Ui_Logged_in_window(object):
         self.save_note_btn.setObjectName("save_note_btn")
         self.discard_note_btn = QtWidgets.QPushButton(self.splitter_8)
         self.discard_note_btn.setObjectName("discard_note_btn")
+        self.line_note_name = QtWidgets.QLineEdit(self.new_note_page)
+        self.line_note_name.setGeometry(QtCore.QRect(200, 110, 251, 51))
+        self.line_note_name.setStyleSheet("background-color: rgb(255, 211, 33);\n"
+"alternate-background-color: rgb(255, 211, 33);")
+        self.line_note_name.setEchoMode(QtWidgets.QLineEdit.Normal)
+        self.line_note_name.setAlignment(QtCore.Qt.AlignCenter)
+        self.line_note_name.setObjectName("line_note_name")
         self.stackedWidget.addWidget(self.new_note_page)
         self.update_note_page = QtWidgets.QWidget()
         self.update_note_page.setObjectName("update_note_page")
@@ -178,7 +186,7 @@ class Ui_Logged_in_window(object):
         self.go_back_btn_3 = QtWidgets.QPushButton(self.splitter_11)
         self.go_back_btn_3.setObjectName("go_back_btn_3")
         self.note_data_txt_2 = QtWidgets.QLineEdit(self.update_note_page)
-        self.note_data_txt_2.setGeometry(QtCore.QRect(200, 150, 251, 401))
+        self.note_data_txt_2.setGeometry(QtCore.QRect(200, 170, 251, 381))
         self.note_data_txt_2.setStyleSheet("background-color: rgb(255, 211, 33);\n"
 "alternate-background-color: rgb(255, 211, 33);")
         self.note_data_txt_2.setEchoMode(QtWidgets.QLineEdit.Normal)
@@ -188,9 +196,17 @@ class Ui_Logged_in_window(object):
         self.graphicsView_7.setGeometry(QtCore.QRect(0, 0, 800, 666))
         self.graphicsView_7.setStyleSheet("background-image: url(:/newPrefix/backgnd.jpeg);")
         self.graphicsView_7.setObjectName("graphicsView_7")
+        self.line_note_name_2 = QtWidgets.QLineEdit(self.update_note_page)
+        self.line_note_name_2.setGeometry(QtCore.QRect(200, 110, 251, 51))
+        self.line_note_name_2.setStyleSheet("background-color: rgb(255, 211, 33);\n"
+"alternate-background-color: rgb(255, 211, 33);")
+        self.line_note_name_2.setEchoMode(QtWidgets.QLineEdit.Normal)
+        self.line_note_name_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.line_note_name_2.setObjectName("line_note_name_2")
         self.graphicsView_7.raise_()
         self.splitter_11.raise_()
         self.note_data_txt_2.raise_()
+        self.line_note_name_2.raise_()
         self.stackedWidget.addWidget(self.update_note_page)
         self.new_cat_page = QtWidgets.QWidget()
         self.new_cat_page.setObjectName("new_cat_page")
@@ -215,9 +231,8 @@ class Ui_Logged_in_window(object):
         self.go_bck_btn = QtWidgets.QPushButton(self.splitter_9)
         self.go_bck_btn.setObjectName("go_bck_btn")
         self.graphicsView_5.raise_()
-        self.add_cat_btn.raise_()
+        self.splitter_9.raise_()
         self.new_cat_txt.raise_()
-        self.go_bck_btn.raise_()
         self.stackedWidget.addWidget(self.new_cat_page)
         self.list_note_cat_page = QtWidgets.QWidget()
         self.list_note_cat_page.setObjectName("list_note_cat_page")
@@ -270,6 +285,7 @@ class Ui_Logged_in_window(object):
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 279, 449))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
+        self.splitter_12.raise_()
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         self.graphicsView_8.raise_()
         self.splitter_12.raise_()
@@ -281,7 +297,7 @@ class Ui_Logged_in_window(object):
         Logged_in_window.setStatusBar(self.statusbar)
 
         self.retranslateUi(Logged_in_window)
-        self.stackedWidget.setCurrentIndex(7)
+        self.stackedWidget.setCurrentIndex(6)
         QtCore.QMetaObject.connectSlotsByName(Logged_in_window)
 
     def retranslateUi(self, Logged_in_window):
@@ -308,12 +324,14 @@ class Ui_Logged_in_window(object):
         self.reminder_chkbx.setText(_translate("Logged_in_window", "Reminder"))
         self.save_note_btn.setText(_translate("Logged_in_window", "Save Note"))
         self.discard_note_btn.setText(_translate("Logged_in_window", "Discard Note"))
+        self.line_note_name.setPlaceholderText(_translate("Logged_in_window", "Note name"))
         self.cat_note_lbl_2.setText(_translate("Logged_in_window", "Category:"))
         self.reminder_chkbx_2.setText(_translate("Logged_in_window", "Reminder"))
         self.updat_note_btn.setText(_translate("Logged_in_window", "Update Note"))
         self.delete_note_btn.setText(_translate("Logged_in_window", "Delete Note"))
         self.go_back_btn_3.setText(_translate("Logged_in_window", "Go Back"))
         self.note_data_txt_2.setPlaceholderText(_translate("Logged_in_window", "Insert notes here"))
+        self.line_note_name_2.setPlaceholderText(_translate("Logged_in_window", "Note name"))
         self.new_cat_txt.setPlaceholderText(_translate("Logged_in_window", "New Category Name"))
         self.add_cat_btn.setText(_translate("Logged_in_window", "Add Category"))
         self.go_bck_btn.setText(_translate("Logged_in_window", "Go Back"))

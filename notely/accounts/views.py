@@ -56,7 +56,7 @@ def signup(request):
                                         email=json_data['NEWEmail'], first_name=json_data['NEWFirst_name'],
                                         last_name=json_data['NEWLast_name'])
         user.save()
-        folder = Folder.objects.create(name='general', list_notes='', user=request.user)
+        folder = Folder.objects.create(name='Uncategorized', list_notes='', user=user)
         folder.save()
         response = HttpResponse('User successfully signed up!!!', status=200)
     return response
@@ -190,7 +190,7 @@ def get_folder_list(request):
     if not request.user.is_authenticated:
         response = HttpResponse('Not signed in', status=403)
     else:
-        folder_set = list(Folder.objects.filter(user=request.user).exclude(name='general').values_list('name', flat=True))
+        folder_set = list(Folder.objects.filter(user=request.user).exclude(name='Uncategorized').values_list('name', flat=True))
         response = HttpResponse(json.dumps(folder_set), status=200)
     return response
 
@@ -216,8 +216,8 @@ def delete_folder(request):
     elif not Folder.objects.filter(name=json_data['name'], user=request.user).exists():
         response = HttpResponse('Said folder does not exist')
     else:
-        if json_data['name'] == 'general':
-            response = HttpResponse('The general folder cannot be deleted!!!', status=400)
+        if json_data['name'] == 'Uncategorized':
+            response = HttpResponse('The uncategorized folder cannot be deleted!!!', status=400)
         else:
             Folder.objects.filter(name=json_data['name'], user=request.user).delete()
             Note.objects.filter(folder_name=json_data['name'], user=request.user)
