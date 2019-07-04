@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import rsc1
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -36,12 +37,7 @@ class Ui_MainWindow(object):
         self.exit_btn.setStyleSheet("background-color: rgb(255, 170, 127);")
         self.exit_btn.setIconSize(QtCore.QSize(16, 16))
         self.exit_btn.setObjectName("exit_btn")
-        self.graphicsView.raise_()
-        self.splitter.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

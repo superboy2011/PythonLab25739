@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="signup_page">
      <widget class="QGraphicsView" name="graphicsView">
@@ -640,7 +640,10 @@ alternate-background-color: rgb(255, 211, 33);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 220, 44);</string>
+       <string notr="true">background-color: rgb(255, 220, 44, 0);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -650,8 +653,8 @@ alternate-background-color: rgb(255, 211, 33);</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>279</width>
-         <height>449</height>
+         <width>281</width>
+         <height>451</height>
         </rect>
        </property>
       </widget>
@@ -690,6 +693,9 @@ alternate-background-color: rgb(255, 211, 33);</string>
        </property>
       </widget>
      </widget>
+     <zorder>graphicsView_6</zorder>
+     <zorder>splitter_10</zorder>
+     <zorder>scrollArea</zorder>
     </widget>
     <widget class="QWidget" name="list_all_cat_page">
      <widget class="QSplitter" name="splitter_12">
@@ -741,7 +747,10 @@ alternate-background-color: rgb(255, 211, 33);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 220, 44);</string>
+       <string notr="true">background-color: rgb(255, 220, 44, 0);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -751,9 +760,21 @@ alternate-background-color: rgb(255, 211, 33);</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>279</width>
-         <height>449</height>
+         <width>281</width>
+         <height>451</height>
         </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
        </property>
        <zorder>splitter_12</zorder>
       </widget>
