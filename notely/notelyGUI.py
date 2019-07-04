@@ -9,6 +9,7 @@ from notelyMainGUI import Ui_Logged_in_window
 import notelyConnection
 from notelyClasses import NotelyNote, NotelyFolder
 from functools import partial
+from datetime import datetime
 
 window_start = None
 window_main = None
@@ -148,39 +149,54 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
         self.save_note_btn.clicked.connect(partial(self.add_note_gui, category, prev_page_index))
 
     def add_note_gui(self, category, prev_page_index):
+        retry = False
+        new_note = None
         if self.reminder_chkbx.isChecked():
-            new_note = NotelyNote(self.line_note_name.text(), category, self.note_data_txt.toPlainText(),
-                                  self.reminder_dt.dateTime().toPyDateTime())
+            if (self.reminder_dt.dateTime().toPyDateTime()-datetime.now()).total_seconds() > 15:
+                new_note = NotelyNote(self.line_note_name.text(), category, self.note_data_txt.toPlainText(),
+                                      self.reminder_dt.dateTime().toPyDateTime())
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Please set a time further than right now")
+                msg.setWindowTitle("Wrong Input")
+                msg.setStandardButtons(QMessageBox.Ok)
+                msg.exec()
+                retry = True
         else:
             new_note = NotelyNote(self.line_note_name.text(), category, self.note_data_txt.toPlainText())
-        success, result, code = notelyConnection.add_note_user(new_note)
-        if success:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.NoIcon)
-            msg.setText("Note added successfully")
-            msg.setWindowTitle("Success")
-            msg.setStandardButtons(QMessageBox.Ok)
-            msg.exec()
-            self.line_note_name.setText("")
-            self.note_data_txt.setText("")
-            if prev_page_index == 2:
-                self.stackedWidget.setCurrentIndex(2)
-            elif prev_page_index == 6:
-                self.come_back_to_show_folder(category)
-            else:
-                print('FATAL ERROR IN ADD NOTE REDIRECT')
-        else:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Critical)
-            msg.setText("Error while adding note")
-            msg.setInformativeText(result)
-            msg.setWindowTitle("Error")
-            msg.setStandardButtons(QMessageBox.Retry | QMessageBox.Cancel)
-            return_value = msg.exec()
-            if return_value == QMessageBox.Cancel:
+        if not retry:
+            success, result, code = notelyConnection.add_note_user(new_note)
+            success_reminder = True
+            if self.reminder_chkbx.isChecked():
+                success_reminder, result_reminder, code_reminder = notelyConnection.trigger_reminder(new_note)
+            if success and success_reminder:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.NoIcon)
+                msg.setText("Note added successfully")
+                msg.setWindowTitle("Success")
+                msg.setStandardButtons(QMessageBox.Ok)
+                msg.exec()
                 self.line_note_name.setText("")
                 self.note_data_txt.setText("")
-                self.stackedWidget.setCurrentIndex(prev_page_index)
+                if prev_page_index == 2:
+                    self.stackedWidget.setCurrentIndex(2)
+                elif prev_page_index == 6:
+                    self.come_back_to_show_folder(category)
+                else:
+                    print('FATAL ERROR IN ADD NOTE REDIRECT')
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Error while adding note")
+                msg.setInformativeText(result)
+                msg.setWindowTitle("Error")
+                msg.setStandardButtons(QMessageBox.Retry | QMessageBox.Cancel)
+                return_value = msg.exec()
+                if return_value == QMessageBox.Cancel:
+                    self.line_note_name.setText("")
+                    self.note_data_txt.setText("")
+                    self.stackedWidget.setCurrentIndex(prev_page_index)
 
     def add_folder_gui(self):
         new_folder = NotelyFolder(self.new_cat_txt.text(), [])
@@ -317,6 +333,7 @@ class StartWindow(QtWidgets.QMainWindow, Ui_Logged_in_window):
                 self.reminder_chkbx_2.setChecked(True)
                 self.reminder_dt_2.setDateTime(QDateTime.fromString(result.reminder.strftime("%Y %m %d H %M %S"),
                                                                     'yyyy MM dd hh mm ss'))
+                self.reminder_chkbx_2.setCheckable(False)
             else:
                 self.reminder_chkbx_2.setChecked(False)
             self.updat_note_btn.disconnect()

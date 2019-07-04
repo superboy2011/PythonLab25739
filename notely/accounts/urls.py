@@ -21,6 +21,7 @@ urlpatterns = [
     path('logout/', views.logout_view),
     path('signup/', views.signup),
     path('note/add/', views.add_note),
+    path('note/timer/', views.start_timer),
     path('note/get/', views.get_note),
     path('note/update/', views.update_note),
     path('note/delete/', views.delete_note),
